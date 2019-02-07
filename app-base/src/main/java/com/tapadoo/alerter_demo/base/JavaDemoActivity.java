@@ -2,14 +2,15 @@ package com.tapadoo.alerter_demo.base;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 /**
@@ -123,12 +124,12 @@ public class JavaDemoActivity extends AppCompatActivity implements View.OnClickL
         Alerter.create(JavaDemoActivity.this)
                 .setTitle("Alert Title")
                 .setText("The alert scales to accommodate larger bodies of text. " +
-                         "The alert scales to accommodate larger bodies of text. " +
-                         "The alert scales to accommodate larger bodies of text.")
+                        "The alert scales to accommodate larger bodies of text. " +
+                        "The alert scales to accommodate larger bodies of text.")
                 .show();
     }
 
-    private void showAlertCallbacks(){
+    private void showAlertCallbacks() {
         Alerter.create(JavaDemoActivity.this)
                 .setTitle("Alert Title")
                 .setText("Alert text...")

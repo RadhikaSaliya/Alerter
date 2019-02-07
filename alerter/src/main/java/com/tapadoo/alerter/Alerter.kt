@@ -6,12 +6,12 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import androidx.annotation.*
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.annotation.*
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import java.lang.ref.WeakReference
 
 /**
@@ -45,6 +45,11 @@ class Alerter private constructor() {
 
             return decorView
         }
+
+    fun setOverlayBackground(colorRes: Int): Alerter {
+        alert?.setOverlayBg(colorRes)
+        return this
+    }
 
     /**
      * Shows the Alert, after it's built
@@ -514,6 +519,16 @@ class Alerter private constructor() {
      */
     private fun setActivity(activity: Activity) {
         activityWeakReference = WeakReference(activity)
+    }
+
+    fun showOverlay(): Alerter {
+        alert?.showOverlay()
+        return this
+    }
+
+    fun disableOverlay(): Alerter {
+        alert?.disableOverlay()
+        return this
     }
 
     companion object {
