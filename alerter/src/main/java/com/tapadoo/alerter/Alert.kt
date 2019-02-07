@@ -209,10 +209,13 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      */
     private fun hide() {
         try {
+            val aniFade = AnimationUtils.loadAnimation(context, R.anim.fadeout)
+            overlayView.startAnimation(aniFade)
             exitAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {
                     llAlertBackground?.setOnClickListener(null)
                     llAlertBackground?.isClickable = false
+                    overlayView.visibility = View.GONE
                 }
 
                 override fun onAnimationEnd(animation: Animation) {
