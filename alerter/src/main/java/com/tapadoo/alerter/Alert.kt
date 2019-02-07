@@ -95,6 +95,9 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
 
         enterAnimation.setAnimationListener(this)
 
+        overlayView.visibility = View.VISIBLE
+        overlayView.alpha = 0.0f
+
         // Set Animation to be Run when View is added to Window
         animation = enterAnimation
 
@@ -162,7 +165,10 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     override fun onAnimationStart(animation: Animation) {
         if (!isInEditMode) {
             visibility = View.VISIBLE
-
+            postDelayed({
+                overlayView.animate()
+                        .alpha(1.0f).duration = 250
+            }, 250)
             if (vibrationEnabled) {
                 performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -202,7 +208,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         //Ignore
     }
 
-    /* Clean Up Methods */
+/* Clean Up Methods */
 
     /**
      * Cleans up the currently showing alert view.
@@ -263,7 +269,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         }, CLEAN_UP_DELAY_MILLIS.toLong())
     }
 
-    /* Setters and Getters */
+/* Setters and Getters */
 
     /**
      * Sets the Alert Background colour
