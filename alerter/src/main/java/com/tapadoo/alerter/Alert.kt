@@ -6,21 +6,25 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.annotation.*
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.view.ContextThemeWrapper
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
-import android.view.*
+import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.alerter_alert_view.view.*
+
 
 /**
  * Custom Alert View
@@ -92,6 +96,9 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
 
         enterAnimation.setAnimationListener(this)
 
+        overlayView.visibility = View.VISIBLE
+        overlayView.alpha = 0.0f
+
         // Set Animation to be Run when View is added to Window
         animation = enterAnimation
 
@@ -145,7 +152,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     }
 
     override fun setOnClickListener(listener: View.OnClickListener?) {
-        llAlertBackground.setOnClickListener(listener)
+        alertContainer.setOnClickListener(listener)
     }
 
     override fun setVisibility(visibility: Int) {
@@ -160,7 +167,10 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     override fun onAnimationStart(animation: Animation) {
         if (!isInEditMode) {
             visibility = View.VISIBLE
-
+            postDelayed({
+                overlayView.animate()
+                        .alpha(1.0f).duration = 250
+            }, 250)
             if (vibrationEnabled) {
                 performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
@@ -200,17 +210,20 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         //Ignore
     }
 
-    /* Clean Up Methods */
+/* Clean Up Methods */
 
     /**
      * Cleans up the currently showing alert view.
      */
     private fun hide() {
         try {
+            val aniFade = AnimationUtils.loadAnimation(context, R.anim.fadeout)
+            overlayView.startAnimation(aniFade)
             exitAnimation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {
                     llAlertBackground?.setOnClickListener(null)
                     llAlertBackground?.isClickable = false
+                    overlayView.visibility = View.GONE
                 }
 
                 override fun onAnimationEnd(animation: Animation) {
@@ -254,7 +267,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         }, CLEAN_UP_DELAY_MILLIS.toLong())
     }
 
-    /* Setters and Getters */
+/* Setters and Getters */
 
     /**
      * Sets the Alert Background colour
@@ -262,7 +275,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param color The qualified colour integer
      */
     fun setAlertBackgroundColor(@ColorInt color: Int) {
-        llAlertBackground.setBackgroundColor(color)
+        alertContainer.setBackgroundColor(color)
     }
 
     /**
@@ -579,6 +592,21 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         } else {
             startHideAnimation()
         }
+    }
+
+
+    fun showOverlay() {
+        overlayView.visibility = View.VISIBLE
+        setOverlayBg(R.color.black_transparent_30)
+
+    }
+
+    fun setOverlayBg(colorRes: Int) {
+        overlayView.setBackgroundColor(context.resources.getColor(colorRes))
+    }
+
+    fun disableOverlay() {
+        overlayView.visibility = View.GONE
     }
 
     companion object {

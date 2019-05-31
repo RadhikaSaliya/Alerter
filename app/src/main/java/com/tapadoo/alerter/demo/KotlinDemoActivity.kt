@@ -2,10 +2,10 @@ package com.tapadoo.alerter.demo
 
 import android.graphics.Typeface
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.tapadoo.alerter.Alerter
 import com.tapadoo.alerter.OnHideAlertListener
 import com.tapadoo.alerter.OnShowAlertListener
@@ -34,6 +34,7 @@ class KotlinDemoActivity : AppCompatActivity() {
         Alerter.create(this@KotlinDemoActivity)
                 .setTitle(R.string.title_activity_example)
                 .setText("Alert text...")
+                .showOverlay()
                 .show()
     }
 

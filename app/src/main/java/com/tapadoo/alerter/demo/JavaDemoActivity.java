@@ -2,14 +2,16 @@ package com.tapadoo.alerter.demo;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 
 /**
  * Java Demo Activity to ensure backwards compatibility
@@ -122,12 +124,12 @@ public class JavaDemoActivity extends AppCompatActivity implements View.OnClickL
         Alerter.create(JavaDemoActivity.this)
                 .setTitle("Alert Title")
                 .setText("The alert scales to accommodate larger bodies of text. " +
-                         "The alert scales to accommodate larger bodies of text. " +
-                         "The alert scales to accommodate larger bodies of text.")
+                        "The alert scales to accommodate larger bodies of text. " +
+                        "The alert scales to accommodate larger bodies of text.")
                 .show();
     }
 
-    private void showAlertCallbacks(){
+    private void showAlertCallbacks() {
         Alerter.create(JavaDemoActivity.this)
                 .setTitle("Alert Title")
                 .setText("Alert text...")
@@ -160,7 +162,7 @@ public class JavaDemoActivity extends AppCompatActivity implements View.OnClickL
                 .setTitle("Alert Title")
                 .setText("Alert text...")
                 .enableProgress(true)
-                .setProgressColorRes(com.tapadoo.alerter.demo.R.color.colorPrimary)
+                .setProgressColorRes(R.color.colorPrimary)
                 .show();
     }
 
