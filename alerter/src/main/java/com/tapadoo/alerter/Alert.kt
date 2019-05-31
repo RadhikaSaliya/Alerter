@@ -18,7 +18,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
@@ -152,7 +151,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     }
 
     override fun setOnClickListener(listener: View.OnClickListener?) {
-        alertContainer.setOnClickListener(listener)
+        //alertContainer.setOnClickListener(listener)
     }
 
     override fun setVisibility(visibility: Int) {
@@ -275,7 +274,7 @@ class Alert @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param color The qualified colour integer
      */
     fun setAlertBackgroundColor(@ColorInt color: Int) {
-        alertContainer.setBackgroundColor(color)
+        // alertContainer.setBackgroundColor(color)
     }
 
     /**
